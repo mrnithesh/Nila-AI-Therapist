@@ -4,7 +4,7 @@
 
 ## Overview
 
-The AI Therapy Chatbot is a conversational AI designed to provide advice and guidance on personal relationships and life issues. It utilizes Google's Generative AI API for natural language generation and Google Text-to-Speech (gTTS) for audio feedback.
+The Nila-AI Therapy Chatbot is a conversational AI designed to provide advice and guidance on personal relationships and life issues. It utilizes Google's Generative AI API for natural language generation and Google Text-to-Speech (gTTS) for audio feedback.
 
 ## Features
 
