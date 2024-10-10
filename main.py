@@ -1,30 +1,28 @@
 import os
-import tempfile
 import google.generativeai as genai
-from gtts import gTTS
 import strip_markdown
-import pygame
+import pyttsx3
+import threading
 
-def generate_audio(text):
-    """Generate and play TTS audio from text."""
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
-        tts = gTTS(text=text, lang="en")
-        tts.save(fp.name)
-        
-    pygame.mixer.init()
-    pygame.mixer.music.load(fp.name)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
-    pygame.mixer.quit()
-    
-    os.unlink(fp.name)
+def generate_and_play_audio(text):
+    """Generate and play TTS audio from text using pyttsx3."""
+    engine = pyttsx3.init()
+    engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[1].id)  # Try different indices to change voices
+    engine.setProperty('rate', 150)  # Speed of speech
+    engine.setProperty('volume', 0.9)  # Volume (0.0 to 1.0)
+    engine.say(text)
+    engine.runAndWait()
 
 def convo(query):
     response = chat.send_message(query)
     updated_response = strip_markdown.strip_markdown(response.text)
     print(updated_response)
-    generate_audio(updated_response)
+    
+    # Start audio generation and playback in a separate thread
+    audio_thread = threading.Thread(target=generate_and_play_audio, args=(updated_response,))
+    audio_thread.start()
 
 # Retrieve Google API Key
 GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")   # Set your API key here
