@@ -1,0 +1,5 @@
+os
+google.generativeai
+strip_markdown
+pyttsx3
+threading
