@@ -1,72 +1,71 @@
+# Nila-AI Therapist
 
-# Nila-AI-Therapist
+**Nila-AI** is an advanced conversational AI chatbot designed to provide compassionate and insightful guidance on personal relationships and life challenges. Built using Google’s Generative AI API for natural language understanding and **pyttsx3** for faster, offline Text-to-Speech (TTS) responses, it serves as a virtual therapist for users seeking emotional support.
 
+## Key Features
 
-## Overview
+- **Natural Language Understanding**: Nila-AI leverages Google Generative AI to respond intelligently and contextually.
+- **Offline Text-to-Speech**: Integrated with `pyttsx3` for real-time, offline voice responses with minimal delay.
+- **Scalable Architecture**: Designed for smooth deployment and interaction.
 
-The Nila-AI Therapy Chatbot is a conversational AI designed to provide advice and guidance on personal relationships and life issues. It utilizes Google's Generative AI API for natural language generation and Google Text-to-Speech (gTTS) for audio feedback.
+## Getting Started
 
-## Features
-
-- **Interactive Conversations**: Engage in conversations with the chatbot about personal relationships and life issues.
-- **Text-to-Speech Conversion**: Convert chatbot responses into spoken audio for a more interactive experience.
-- **Integration with Google Colab**: Designed to work seamlessly in Google Colab notebooks.
-
-## Usage
-
-### Getting Started
-
-To use the AI Therapy Chatbot, follow these steps:
-
-1. **Set Up Google Colab**:
-   - Open the provided Colab notebook (`Nila-AI Therapist.ipynb`) in Google Colab.
-
-2. **Install Dependencies**:
-   - Ensure you have the necessary dependencies installed:
-     ```python
-     !pip install google-generativeai gtts
-     ```
-
-3. **Set Up Google API Key**:
-   - Obtain a Google API key for the Generative AI API and set it in your Colab notebook.
-
-4. **Run the Notebook**:
-   - Execute the cells in the notebook to initialize the chatbot and start interacting with it.
-
-### Example Usage
-
-```python
-# Example usage in Google Colab
-import google.generativeai as genai
-from gtts import gTTS
-import io
-
-# Configure Google API key
-genai.configure(api_key="YOUR_GOOGLE_API_KEY")
-
-# Initialize chatbot model and start interaction
-# Insert code snippet from your notebook
+### 1. Clone the Repository
+```bash
+git clone https://github.com/mrnithesh/Nila-AI-Therapist.git
+cd Nila-AI-Therapist
 ```
 
-### API Reference
+### 2. Install Dependencies
+Ensure you have Python 3.x installed. Then, install the required Python libraries:
+```bash
+pip install -r requirements.txt
+```
 
-- **google.generativeai**: Documentation for using Google's Generative AI API can be found [here](https://google.github.io/generativeai-python/).
+### 3. Set Up API Keys
+To use Google Generative AI, configure your API key:
+```python
+genai.configure(api_key="YOUR_GOOGLE_API_KEY")
+```
 
-- **gtts**: Documentation for gTTS (Google Text-to-Speech) can be found [here](https://gtts.readthedocs.io/en/latest/).
+### 4. Run the Application
+```bash
+python main.py
+```
 
-### Contributing
+## Documentation & References
 
-We welcome contributions to improve the AI Therapy Chatbot! If you'd like to contribute, please follow these guidelines:
+- [Google Generative AI Documentation](https://cloud.google.com/generative-ai)
+- [pyttsx3 Text-to-Speech Documentation](https://pypi.org/project/pyttsx3/)
+- [Python Google API Client](https://googleapis.dev/python/google-api-core/latest/index.html)
 
-- Fork the repository and create your branch from `main`.
-- Follow the coding style and guidelines used in the project.
-- Make sure to test your changes thoroughly.
-- Submit a pull request detailing the changes made and the problem solved.
+For more detailed API integration or advanced use cases, please refer to the above official documentation.
 
-### License
+## Project Structure
 
-This project is licensed under the [MIT License](LICENSE). See the LICENSE file for more details.
+- **main.py**: Contains the core logic with updated Text-to-Speech functionality using `pyttsx3`.
+- **requirements.txt**: Lists the required dependencies.
+- **legacy/**: Contains the original Jupyter Notebook (`Nila_AI_Therapist.ipynb`) for historical reference.
 
-### Contact
+## How It Works
 
-For questions or feedback, please contact [Nithesh K](https://www.linkedin.com/in/mrnithesh/).
+The chatbot interacts via the terminal, responding to user inputs with text and audio. It uses Google Generative AI for generating meaningful replies, while `pyttsx3` provides offline, faster TTS with minimal delay compared to online TTS services.
+
+### Core Workflow:
+1. **Input**: User queries.
+2. **Processing**: Google Generative AI analyzes the query and generates a response.
+3. **Output**: The response is either returned as text or spoken aloud using `pyttsx3`.
+
+## Contributing
+
+Feel free to contribute by forking the repository, making your changes, and submitting a pull request. Suggestions to improve functionality or add new features are always welcome.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Contact
+
+For any queries or further information, please reach out via [LinkedIn](https://www.linkedin.com/in/mrnithesh/) or email at mr.nithesh.k@gmail.com.
+
+
