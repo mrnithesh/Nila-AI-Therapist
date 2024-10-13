@@ -162,6 +162,13 @@ with tab1:
         "diagnosis, or treatment. If you're experiencing a mental health emergency, please contact your "
         "local emergency services or a mental health professional immediately."
     )
+    # Check if running in Streamlit Cloud (using os.getenv to detect the environment)
+    if os.getenv("ST_STREAMLIT_SERVER_URL"):
+        st.info(
+            "Audio functionalities are unavailable on Streamlit Cloud due to platform limitations. "
+            "For an interactive audio experience, please try running the app locally on your machine."
+            )
+
 
 with tab2:
     st.header("About Me")
