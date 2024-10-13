@@ -166,30 +166,31 @@ with tab1:
 with tab2:
     st.header("About Me")
     st.markdown("""
-    ## Hello! I'm **Nithesh**, the creator of **Nila AI Therapist**.
+    ## Hello! I'm **Nithesh** 👋, the creator of **Nila AI Therapist** 🤖.
 
-    I'm a passionate developer with a deep interest in **AI**, **Natural Language Processing (NLP)**, **Blockchain Technology**, and how technology can positively impact **mental health** and **well-being**.
+    I'm a passionate developer with a deep interest in **AI** 🧠, **Natural Language Processing (NLP)** 🗣️, **Blockchain Technology** 🔗, and how technology can positively impact **mental health** 🧘‍♂️ and **well-being** 🌱.
 
     ### My background:
-    - **Pursuing Bachelor of Engineering** in Computer Science, specialized in IoT, Cybersecurity, and Blockchain Technology at **SNS College of Engineering**, Coimbatore, India.
-    - **Intern at SNS innovationHub**, working on innovative AI-driven solutions.
+    - 🎓 **Pursuing Bachelor of Engineering** in Computer Science, specialized in IoT, Cybersecurity, and Blockchain Technology at **SNS College of Engineering**, Coimbatore, India.
+    - 💼 **Intern at SNS innovationHub**, working on innovative AI-driven solutions.
 
     ### Why I created Nila:
-    Nila was born out of my deep interest in leveraging **AI** to address real-world challenges, with a particular focus on **mental health**. I have personally experienced feelings of loneliness, and I recognized how crucial it is for people to have access to support whenever they need it. This inspired me to create a platform where individuals can find **comfort**, **empathy**, and **guidance** through AI, available anytime and anywhere.
+    Nila was born out of my deep interest in leveraging **AI** to address real-world challenges 🌍, with a particular focus on **mental health** ❤️. I have personally experienced feelings of loneliness, and I recognized how crucial it is for people to have access to support whenever they need it. This inspired me to create a platform where individuals can find **comfort**, **empathy**, and **guidance** through AI, available anytime and anywhere 🌟.
 
-    Mental health is an area where technology can truly make a difference, and Nila is my way of contributing to a world where **emotional well-being** is supported and prioritized, regardless of time or place.
+    Mental health is an area where technology can truly make a difference, and Nila is my way of contributing to a world where **emotional well-being** is supported and prioritized, regardless of time or place 🌈.
 
     ### Other Projects:
-    1. **AI-Powered Resume Builder** – A tool to generate **ATS-friendly resumes** with AI assistance.
-    2. **AI-Powered Resume Analyzer** – An app that analyzes resumes and provides **feedback** for improvement.
-    3. **AI-Powered Expense Tracker App** – An Android app that helps users **track and manage expenses** through AI-powered insights.
+    1. 📝 **AI-Powered Resume Builder** – A tool to generate **ATS-friendly resumes** with AI assistance.
+    2. 🔍 **AI-Powered Resume Analyzer** – An app that analyzes resumes and provides **feedback** for improvement.
+    3. 💰 **AI-Powered Expense Tracker App** – An Android app that helps users **track and manage expenses** through AI-powered insights.
 
     ### Connect with me:
-    - **GitHub**: [github.com/mrnithesh](https://github.com/mrnithesh)
-    - **LinkedIn**: [linkedin.com/in/mrnithesh](https://linkedin.com/in/mrnithesh)
+    - 🖥️ **GitHub**: [github.com/mrnithesh](https://github.com/mrnithesh)
+    - 💼 **LinkedIn**: [linkedin.com/in/mrnithesh](https://linkedin.com/in/mrnithesh)
 
-    I'm always open to **feedback** and **collaboration**. Feel free to reach out if you have any questions or ideas!
+    I'm always open to **feedback** 💡 and **collaboration** 🤝. Feel free to reach out if you have any questions or ideas!
     """)
+
 
 
 # Sidebar components
