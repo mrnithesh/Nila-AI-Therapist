@@ -97,7 +97,7 @@ By staying true to these principles, Nila can offer safe, effective, and empathe
 """
 
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-pro-latest",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
     safety_settings=safety_settings
 )
