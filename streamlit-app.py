@@ -6,10 +6,18 @@ import pyttsx3
 import threading
 import json
 from datetime import datetime
+from pymongo import MongoClient
 
 # Streamlit page config
 st.set_page_config(page_title="Nila - AI Counselor", page_icon="🧠", layout="wide")
 
+MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    st.error("Please set the MONGO_URI environment variable.")
+    st.stop()
+client = MongoClient(MONGO_URI)
+db = client['nila_counselor']
+feedback_collection = db['feedback']
 # Sidebar for settings
 st.sidebar.title("Settings")
 enable_audio = st.sidebar.checkbox("Enable Audio", value=True)
@@ -166,19 +174,16 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("Feedback")
 feedback = st.sidebar.text_area("How was your experience with Nila?")
 if st.sidebar.button("Submit Feedback"):
-    # Save feedback to a JSON file
+    # Save feedback to MongoDB
     feedback_data = {
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now(),
         "feedback": feedback
     }
     try:
-        with open("feedback.json", "a") as f:
-            json.dump(feedback_data, f)
-            f.write("\n")
+        feedback_collection.insert_one(feedback_data)
         st.sidebar.success("Thank you for your feedback!")
     except Exception as e:
         st.sidebar.error(f"Error saving feedback: {str(e)}")
-
 # Add a help section
 st.sidebar.markdown("---")
 with st.sidebar.expander("Help"):
