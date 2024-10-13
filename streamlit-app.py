@@ -9,7 +9,7 @@ from datetime import datetime
 from pymongo import MongoClient
 
 # Streamlit page config
-st.set_page_config(page_title="Nila - AI Counselor", page_icon="🧠", layout="wide")
+st.set_page_config(page_title="Nila - AI Counselor", page_icon="🌛", layout="wide")
 
 MONGO_URI = os.getenv("MONGO_URI")
 if not MONGO_URI:
@@ -112,7 +112,7 @@ if 'chat' not in st.session_state:
     st.session_state.chat_history.append(("Nila", initial_response))
 
 # Main app
-st.title("Nila - Your AI Counselor 🧠")
+st.title("Nila 🌛- Your AI Counselor 🌸")
 
 # Add tabs for Chat and About
 tab1, tab2 = st.tabs(["Chat", "About"])
@@ -156,7 +156,7 @@ with tab1:
             mime="text/plain"
         )
 
-    # Move disclaimer to main page
+    # disclaimer in main page
     st.info(
         "Disclaimer: Nila is an AI-based counselor and should not replace professional medical advice, "
         "diagnosis, or treatment. If you're experiencing a mental health emergency, please contact your "
@@ -165,29 +165,32 @@ with tab1:
 
 with tab2:
     st.header("About Me")
-    st.write("""
-    Hello! I'm [Your Name], the creator of Nila AI Counselor. I'm a passionate developer with a keen interest in AI and its applications in mental health and well-being.
+    st.markdown("""
+    ## Hello! I'm **Nithesh**, the creator of **Nila AI Therapist**.
 
-    My background:
-    - [Your educational background]
-    - [Your relevant work experience]
-    - [Any certifications or special skills]
+    I'm a passionate developer with a deep interest in **AI**, **Natural Language Processing (NLP)**, **Blockchain Technology**, and how technology can positively impact **mental health** and **well-being**.
 
-    Why I created Nila:
-    [Explain your motivation behind creating this AI counselor]
+    ### My background:
+    - **Pursuing Bachelor of Engineering** in Computer Science, specialized in IoT, Cybersecurity, and Blockchain Technology at **SNS College of Engineering**, Coimbatore, India.
+    - **Intern at SNS innovationHub**, working on innovative AI-driven solutions.
 
-    Other projects:
-    1. [Project 1 name and brief description]
-    2. [Project 2 name and brief description]
-    3. [Project 3 name and brief description]
+    ### Why I created Nila:
+    Nila was born out of my deep interest in leveraging **AI** to address real-world challenges, with a particular focus on **mental health**. I have personally experienced feelings of loneliness, and I recognized how crucial it is for people to have access to support whenever they need it. This inspired me to create a platform where individuals can find **comfort**, **empathy**, and **guidance** through AI, available anytime and anywhere.
 
-    Connect with me:
-    - GitHub: [Your GitHub profile link]
-    - LinkedIn: [Your LinkedIn profile link]
-    - Personal website: [Your website if you have one]
+    Mental health is an area where technology can truly make a difference, and Nila is my way of contributing to a world where **emotional well-being** is supported and prioritized, regardless of time or place.
 
-    I'm always open to feedback and collaboration. Feel free to reach out if you have any questions or ideas!
+    ### Other Projects:
+    1. **AI-Powered Resume Builder** – A tool to generate **ATS-friendly resumes** with AI assistance.
+    2. **AI-Powered Resume Analyzer** – An app that analyzes resumes and provides **feedback** for improvement.
+    3. **AI-Powered Expense Tracker App** – An Android app that helps users **track and manage expenses** through AI-powered insights.
+
+    ### Connect with me:
+    - **GitHub**: [github.com/mrnithesh](https://github.com/mrnithesh)
+    - **LinkedIn**: [linkedin.com/in/mrnithesh](https://linkedin.com/in/mrnithesh)
+
+    I'm always open to **feedback** and **collaboration**. Feel free to reach out if you have any questions or ideas!
     """)
+
 
 # Sidebar components
 # Add a feedback section
