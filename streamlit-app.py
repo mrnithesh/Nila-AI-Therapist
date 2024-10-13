@@ -8,9 +8,11 @@ import threading
 # Streamlit page config
 st.set_page_config(page_title="Nila - AI Counselor", page_icon="🧠", layout="wide")
 
-# Sidebar for audio control
+# Sidebar for settings
 st.sidebar.title("Settings")
 enable_audio = st.sidebar.checkbox("Enable Audio", value=True)
+voice_speed = st.sidebar.slider("Voice Speed", min_value=100, max_value=200, value=150, step=10)
+voice_volume = st.sidebar.slider("Voice Volume", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
 
 def generate_and_play_audio(text):
     """Generate and play TTS audio from text using pyttsx3."""
@@ -18,8 +20,8 @@ def generate_and_play_audio(text):
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
         engine.setProperty('voice', voices[1].id)
-        engine.setProperty('rate', 150)
-        engine.setProperty('volume', 0.9)
+        engine.setProperty('rate', voice_speed)
+        engine.setProperty('volume', voice_volume)
         engine.say(text)
         engine.runAndWait()
 
@@ -85,19 +87,22 @@ st.title("Nila - Your AI Counselor 🧠")
 # Display chat history
 for role, text in st.session_state.chat_history:
     if role == "You":
-        st.write(f"**You:** {text}")
+        st.markdown(f"**You:** {text}")
     else:
-        st.write(f"**Nila:** {text}")
+        st.markdown(f"**Nila:** {text}")
 
-# User input
-user_input = st.text_input("What's on your mind?", key="user_input")
-
-if st.button("Send"):
+# Function to process user input
+def process_user_input():
+    user_input = st.session_state.user_input
     if user_input:
         st.session_state.chat_history.append(("You", user_input))
-        response = convo(user_input, st.session_state.chat)
+        with st.spinner("Nila is thinking..."):
+            response = convo(user_input, st.session_state.chat)
         st.session_state.chat_history.append(("Nila", response))
-        st.rerun()
+        st.session_state.user_input = ""  # Clear the input field
+
+# User input
+st.text_input("What's on your mind?", key="user_input", on_change=process_user_input)
 
 # Clear chat button
 if st.button("Clear Chat"):
@@ -106,3 +111,54 @@ if st.button("Clear Chat"):
     initial_response = convo(system_instruction, st.session_state.chat)
     st.session_state.chat_history.append(("Nila", initial_response))
     st.rerun()
+
+# Add a download button for chat history
+if st.button("Download Chat History"):
+    chat_text = "\n".join([f"{role}: {text}" for role, text in st.session_state.chat_history])
+    st.download_button(
+        label="Download Chat",
+        data=chat_text,
+        file_name="nila_chat_history.txt",
+        mime="text/plain"
+    )
+
+# Add a feedback section
+st.sidebar.markdown("---")
+st.sidebar.subheader("Feedback")
+feedback = st.sidebar.text_area("How was your experience with Nila?")
+if st.sidebar.button("Submit Feedback"):
+    # Here you can add code to handle the feedback (e.g., save to a database)
+    st.sidebar.success("Thank you for your feedback!")
+
+# Add a help section
+st.sidebar.markdown("---")
+with st.sidebar.expander("Help"):
+    st.markdown("""
+    - Type your message and press Enter to chat with Nila.
+    - Use the Clear Chat button to start a new conversation.
+    - Toggle audio on/off and adjust voice settings in the sidebar.
+    - Download your chat history for future reference.
+    - Provide feedback to help us improve Nila.
+    """)
+
+# Add mood tracking
+st.sidebar.markdown("---")
+st.sidebar.subheader("Mood Tracker")
+mood = st.sidebar.select_slider(
+    "How are you feeling today?",
+    options=["😞", "😐", "😊", "😄", "🥳"],
+    value="😐"
+)
+if st.sidebar.button("Log Mood"):
+    st.sidebar.success(f"Mood logged: {mood}")
+    # Here you can add code to save the mood data
+
+# Add a resources section
+st.sidebar.markdown("---")
+with st.sidebar.expander("Helpful Resources"):
+    st.markdown("""
+    - [National Suicide Prevention Lifeline](https://suicidepreventionlifeline.org/)
+    - [Psychology Today - Find a Therapist](https://www.psychologytoday.com/us/therapists)
+    - [Mindfulness Exercises](https://www.mindful.org/category/meditation/mindfulness-exercises/)
+    - [Self-Care Tips](https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729)
+    """)
