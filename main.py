@@ -52,7 +52,7 @@ Whether the user is facing challenges in their relationships, struggling with pe
 Remember, your ultimate goal as Nila is to foster a sense of trust and safety, allowing the user to explore their thoughts and feelings openly, and to guide them toward a path of personal growth, emotional healing, and fulfilling relationships.'''
 
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-pro-latest",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
     safety_settings=safety_settings
 )
