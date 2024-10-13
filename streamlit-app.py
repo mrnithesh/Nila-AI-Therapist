@@ -4,6 +4,8 @@ import google.generativeai as genai
 import strip_markdown
 import pyttsx3
 import threading
+import json
+from datetime import datetime
 
 # Streamlit page config
 st.set_page_config(page_title="Nila - AI Counselor", page_icon="🧠", layout="wide")
@@ -24,7 +26,6 @@ def generate_and_play_audio(text):
         engine.setProperty('volume', voice_volume)
         engine.say(text)
         engine.runAndWait()
-
 def convo(query, chat):
     response = chat.send_message(query)
     updated_response = strip_markdown.strip_markdown(response.text)
@@ -84,51 +85,99 @@ if 'chat' not in st.session_state:
 # Main app
 st.title("Nila - Your AI Counselor 🧠")
 
-# Display chat history
-for role, text in st.session_state.chat_history:
-    if role == "You":
-        st.markdown(f"**You:** {text}")
-    else:
-        st.markdown(f"**Nila:** {text}")
+# Add tabs for Chat and About
+tab1, tab2 = st.tabs(["Chat", "About"])
 
-# Function to process user input
-def process_user_input():
-    user_input = st.session_state.user_input
-    if user_input:
-        st.session_state.chat_history.append(("You", user_input))
-        with st.spinner("Nila is thinking..."):
-            response = convo(user_input, st.session_state.chat)
-        st.session_state.chat_history.append(("Nila", response))
-        st.session_state.user_input = ""  # Clear the input field
+with tab1:
+    # Display chat history
+    for role, text in st.session_state.chat_history:
+        if role == "You":
+            st.markdown(f"**You:** {text}")
+        else:
+            st.markdown(f"**Nila:** {text}")
 
-# User input
-st.text_input("What's on your mind?", key="user_input", on_change=process_user_input)
+    # Function to process user input
+    def process_user_input():
+        user_input = st.session_state.user_input
+        if user_input:
+            st.session_state.chat_history.append(("You", user_input))
+            with st.spinner("Nila is thinking..."):
+                response = convo(user_input, st.session_state.chat)
+            st.session_state.chat_history.append(("Nila", response))
+            st.session_state.user_input = ""  # Clear the input field
 
-# Clear chat button
-if st.button("Clear Chat"):
-    st.session_state.chat_history = []
-    st.session_state.chat = model.start_chat(history=[])
-    initial_response = convo(system_instruction, st.session_state.chat)
-    st.session_state.chat_history.append(("Nila", initial_response))
-    st.rerun()
+    # User input
+    st.text_input("What's on your mind?", key="user_input", on_change=process_user_input)
 
-# Add a download button for chat history
-if st.button("Download Chat History"):
-    chat_text = "\n".join([f"{role}: {text}" for role, text in st.session_state.chat_history])
-    st.download_button(
-        label="Download Chat",
-        data=chat_text,
-        file_name="nila_chat_history.txt",
-        mime="text/plain"
+    # Clear chat button
+    if st.button("Clear Chat"):
+        st.session_state.chat_history = []
+        st.session_state.chat = model.start_chat(history=[])
+        initial_response = convo(system_instruction, st.session_state.chat)
+        st.session_state.chat_history.append(("Nila", initial_response))
+        st.rerun()
+
+    # Add a download button for chat history
+    if st.button("Download Chat History"):
+        chat_text = "\n".join([f"{role}: {text}" for role, text in st.session_state.chat_history])
+        st.download_button(
+            label="Download Chat",
+            data=chat_text,
+            file_name=f"nila_chat_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+            mime="text/plain"
+        )
+
+    # Move disclaimer to main page
+    st.info(
+        "Disclaimer: Nila is an AI-based counselor and should not replace professional medical advice, "
+        "diagnosis, or treatment. If you're experiencing a mental health emergency, please contact your "
+        "local emergency services or a mental health professional immediately."
     )
 
+with tab2:
+    st.header("About Me")
+    st.write("""
+    Hello! I'm [Your Name], the creator of Nila AI Counselor. I'm a passionate developer with a keen interest in AI and its applications in mental health and well-being.
+
+    My background:
+    - [Your educational background]
+    - [Your relevant work experience]
+    - [Any certifications or special skills]
+
+    Why I created Nila:
+    [Explain your motivation behind creating this AI counselor]
+
+    Other projects:
+    1. [Project 1 name and brief description]
+    2. [Project 2 name and brief description]
+    3. [Project 3 name and brief description]
+
+    Connect with me:
+    - GitHub: [Your GitHub profile link]
+    - LinkedIn: [Your LinkedIn profile link]
+    - Personal website: [Your website if you have one]
+
+    I'm always open to feedback and collaboration. Feel free to reach out if you have any questions or ideas!
+    """)
+
+# Sidebar components
 # Add a feedback section
 st.sidebar.markdown("---")
 st.sidebar.subheader("Feedback")
 feedback = st.sidebar.text_area("How was your experience with Nila?")
 if st.sidebar.button("Submit Feedback"):
-    # Here you can add code to handle the feedback (e.g., save to a database)
-    st.sidebar.success("Thank you for your feedback!")
+    # Save feedback to a JSON file
+    feedback_data = {
+        "timestamp": datetime.now().isoformat(),
+        "feedback": feedback
+    }
+    try:
+        with open("feedback.json", "a") as f:
+            json.dump(feedback_data, f)
+            f.write("\n")
+        st.sidebar.success("Thank you for your feedback!")
+    except Exception as e:
+        st.sidebar.error(f"Error saving feedback: {str(e)}")
 
 # Add a help section
 st.sidebar.markdown("---")
@@ -140,18 +189,6 @@ with st.sidebar.expander("Help"):
     - Download your chat history for future reference.
     - Provide feedback to help us improve Nila.
     """)
-
-# Add mood tracking
-st.sidebar.markdown("---")
-st.sidebar.subheader("Mood Tracker")
-mood = st.sidebar.select_slider(
-    "How are you feeling today?",
-    options=["😞", "😐", "😊", "😄", "🥳"],
-    value="😐"
-)
-if st.sidebar.button("Log Mood"):
-    st.sidebar.success(f"Mood logged: {mood}")
-    # Here you can add code to save the mood data
 
 # Add a resources section
 st.sidebar.markdown("---")
