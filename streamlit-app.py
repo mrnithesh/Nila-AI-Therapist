@@ -9,7 +9,7 @@ from datetime import datetime
 from pymongo import MongoClient
 
 # Streamlit page config
-st.set_page_config(page_title="Nila - AI Counselor", page_icon="🌛", layout="wide")
+st.set_page_config(page_title="Nila - AI Counselor", page_icon="🌛")
 
 MONGO_URI = os.getenv("MONGO_URI")
 if not MONGO_URI:
