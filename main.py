@@ -81,7 +81,7 @@ Your purpose is to offer thoughtful, compassionate, and personalized advice to u
 - Avoid controversial, political, or inflammatory topics.
 '''
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
+    model_name="gemini-2.0-flash-thinking-exp-01-21",
     generation_config=generation_config,
     safety_settings=safety_settings
 )
